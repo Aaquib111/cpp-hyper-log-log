@@ -31,11 +31,11 @@ double HyperLogLog::estimateCardinality() const {
     const double alpha{getAlpha()};
     double Z{0.0};
     for(const auto& bucket : buckets){
-        Z += std::pow(2.0, -static_cast<double>(bucket.getLeadingZeros() + 1));
+        Z += std::ldexp(1.0, -static_cast<int>(bucket.getLeadingZeros() + 1));
     }
     std::cout << "Z: " << Z << std::endl;
     std::cout << "alpha: " << alpha << std::endl;
     std::cout << "numBuckets: " << numBuckets << std::endl;
 
-    return alpha * (numBuckets * numBuckets) / Z;
+    return alpha * (static_cast<double>(numBuckets) * numBuckets) / Z;
 }
