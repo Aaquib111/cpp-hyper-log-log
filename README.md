@@ -38,6 +38,13 @@ HyperLogLog follows the following steps to achieve this:
   Our final estimation is:
   $$E = a_m * m^2 * Z$$
 
+**Results**
+| Unique Elements | Estimated | Error |
+|----------------|-----------|-------|
+| 1,000 | 881 | -11.9% |
+| 10,000 | 9,613 | -3.9% |
+| 100,000 | 97,233 | -2.8% |
+
 **Example**
 
 When running with 64 buckets, 50k total elements, and 5k unique elements:
