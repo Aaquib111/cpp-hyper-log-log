@@ -31,13 +31,11 @@ double HyperLogLog::estimateCardinality() const {
     const double alpha{getAlpha()};
     double Z{0.0};
     for(const auto& bucket : buckets){
-        Z += std::pow(2.0, -static_cast<double>(bucket.getLeadingZeros()));
+        Z += std::pow(2.0, -static_cast<double>(bucket.getLeadingZeros() + 1));
     }
     std::cout << "Z: " << Z << std::endl;
     std::cout << "alpha: " << alpha << std::endl;
     std::cout << "numBuckets: " << numBuckets << std::endl;
 
-    // Need to add correction factor of 2, I suspect 
-    // this is because of our hash function
-    return 2 * alpha * (numBuckets * numBuckets) / Z;
+    return alpha * (numBuckets * numBuckets) / Z;
 }
